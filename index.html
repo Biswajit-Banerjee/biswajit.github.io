@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h5 {
+            color: #021826;
+            /* Adjust the color to the shade of gray you like */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10%;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .links a:hover {
+            color: #0077b5;
+        }
+
+        .timeline {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .timeline-node {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            position: relative;
+
+        }
+
+        .timeline-line {
+            width: 2px;
+            background-color: transparent;
+            border-left: 2px dotted black;
+            /* height: 100%; */
+            height: calc(100% - 20px);
+            position: absolute;
+            left: 70px;
+        }
+
+        .timeline-year {
+            flex: 0 0 60px;
+            text-align: left;
+            padding-top: 20px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-left: 31px;
+        }
+
+        .timeline-node img {
+            max-width: 100%;
+            /* height: auto;  */
+            margin-bottom: 10px;
+            margin-right: 20px;
+            width: 100px;
+            /* Define a specific width */
+            height: 100px;
+            /* Define a specific height */
+            object-fit: cover;
+            /*Maintain aspect ratio and cover the defined size */
+        }
+
+        .timeline-bullet {
+            width: 12px;
+            height: 12px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            left: 71px;
+            top: 10%;
+            transform: translate(-50%, -50%);
+        }
+
+        .content-heading h4,
+        .content-heading h5 {
+            margin: 0;
+        }
+    </style>
+    <title>Your Portfolio</title>
+</head>
+
+<body>
+    <div class="container">
+        <img src="me.jpg" alt="Biswajit">
+        <h1>Biswajit Banerjee</h1>
+        <p>Exploring the roots of life through code and curiosity 🌱💻🔍</p>
+        <div class="links">
+            <a href="https://www.linkedin.com/in/bbaner/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://www.example.com"><i class="fas fa-print"></i>Resume</a>
+            <a href="https://bioinformatics.gatech.edu/biswajit-banerjee"><i
+                    class="fas fa-graduation-cap"></i>University</a>
+
+            <!-- Add more links as needed -->
+        </div>
+        <div class="timeline">
+            <h2>Adventures</h2>
+            <!-- Add your timeline content here -->
+
+            <div class="timeline-node">
+                <div class="timeline-bullet"></div> <!-- Add bullet -->
+                <div class="timeline-line"></div>
+                <div class="timeline-year">2023-24</div>
+                <div class="timeline-content">
+                    <div class="content-heading">
+                        <h4>Graduate Researcher</h4>
+                        <h5>Center for the Origin of Life</h5>
+                    </div>
+                    <p>Working with a team of researchers from various domain at the COOL lab, Our goal is to find how
+                        life originated at earth
+                        and also possibilities of pesent of life in other planets.<br>
+                        As a graduate researcher, my role is to apply Machine Learning and Generative AI to the problem
+                        domain of protein folding, Ribosome, molecular evolution. <br>
+                    </p>
+                </div>
+                <img src="Cool.png" alt="COOL">
+            </div>
+
+            <div class="timeline-node">
+                <div class="timeline-bullet"></div> <!-- Add bullet -->
+                <div class="timeline-line"></div>
+                <div class="timeline-year">2023-24</div>
+                <div class="timeline-content">
+                    <div class="content-heading">
+                        <h4>Masters in Bioinformatics</h4>
+                        <h5>Georgia Institute of Technology</h5>
+                    </div>
+                    <p>Pursuing a Masters degree at GeorgiaTech with Machine Learning specialization, while researching
+                        at the COOL lab.</p>
+                </div>
+                <img src="gt.png" alt="MS Bioinformatics">
+            </div>
+
+            <div class="timeline-node">
+                <div class="timeline-bullet"></div> <!-- Add bullet -->
+                <div class="timeline-line"></div>
+                <div class="timeline-year">2022-23</div>
+                <div class="timeline-content">
+                    <div class="content-heading">
+                        <h4>Senior Computer Vision Engineer</h4>
+                        <h5>Stellapps</h5>
+                    </div>
+                    <p>Created Computer Vision solutions for dairy and farm problems.
+                        It involved create light weighted models with fast inference time optimizqation.
+                        Converted models to be deployable on mobile nad IoT devices.
+                    </p>
+                </div>
+                <img src="https://play-lh.googleusercontent.com/gafihwFyHyruMG9xiIxUkcRY7sYb0ux7sRG7feJI6U1nZLd4rRakymEkeUKy0udM8RaZ"
+                    alt="Stellapps">
+            </div>
+
+            <div class="timeline-node">
+                <div class="timeline-bullet"></div> <!-- Add bullet -->
+                <div class="timeline-line"></div>
+                <div class="timeline-year">2019-22</div>
+                <div class="timeline-content">
+                    <div class="content-heading">
+                        <h4>Research and Development Engineer, AI/ML</h4>
+                        <h5>Synopsys</h5>
+                    </div>
+                    <p>Spend a lot of time on creating and optimizing the data processing pipeline using Airflow and
+                        Spark.
+                    </p>
+                </div>
+                <img src="synopsys.png" alt="Synopsys">
+            </div>
+            <div class="timeline-node">
+                <div class="timeline-bullet"></div> <!-- Add bullet -->
+                <div class="timeline-line"></div>
+                <div class="timeline-year">2019-22</div>
+                <div class="timeline-content">
+                    <div class="content-heading">
+                        <h4>Bachlor of Tech in Computer Science & Engineering</h4>
+                        <h5>Asansol Engineering College</h5>
+                    </div>
+                    <p>Spend a lot of time on creating and optimizing the data processing pipeline using Airflow and
+                        Spark.
+                    </p>
+                </div>
+                <img src="astrobio.png" alt="astrobio">
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</body>
+
+</html>
