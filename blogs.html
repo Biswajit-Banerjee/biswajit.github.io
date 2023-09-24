@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="static/blogstyle.css">
+  <title>Modern Blogs</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to my Blogs</h1>
+    <div class="topics">
+      <div class="topic" onclick="toggleSubtopics(this)">
+        <h2>🤖 Machine Learning <span class="arrow">▼</span></h2>
+        <div class="subtopics">
+          <a href="blogs/topic1/blog1.html">Blog 1</a>
+          <a href="blogs/topic1/blog2.html">Blog 2</a>
+        </div>
+      </div>
+      <div class="topic" onclick="toggleSubtopics(this)">
+        <h2>🧬 Bio-Chemistry<span class="arrow">▼</span></h2>
+        <div class="subtopics">
+          <a href="blogs/topic2/blog3.html">Blog 3</a>
+          <a href="blogs/topic2/blog4.html">Blog 4</a>
+        </div>
+      </div>
+      <div class="topic" onclick="toggleSubtopics(this)">
+        <h2>🚿 Shower-Thoughts</Shower-Thoughts><span class="arrow">▼</span></h2>
+        <div class="subtopics">
+          <a href="blogs/topic2/blog3.html">Blog 3</a>
+          <a href="blogs/topic2/blog4.html">Blog 4</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts/blogs.js"></script>
+</body>
+</html>

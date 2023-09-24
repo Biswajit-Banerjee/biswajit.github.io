@@ -1,0 +1,133 @@
+/* styles.css */
+
+/* Adjust heading colors */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #021826;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+img {
+  width: 150px;
+  height: 150px;
+  border-radius: 10%;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #000;
+}
+
+.links a:hover {
+  color: #0077b5;
+}
+
+.timeline {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.timeline-node {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.timeline-line {
+  width: 2px;
+  background-color: transparent;
+  border-left: 2px dotted black;
+  height: calc(100% - 20px);
+  position: absolute;
+  left: 70px;
+}
+
+.timeline-year {
+  flex: 0 0 60px;
+  text-align: left;
+  padding-top: 20px;
+}
+
+.timeline-content {
+  flex: 1;
+  padding-left: 31px;
+}
+
+.timeline-node img {
+  max-width: 100%;
+  margin-bottom: 10px;
+  margin-right: 20px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.timeline-bullet {
+  width: 12px;
+  height: 12px;
+  background-color: black;
+  border-radius: 50%;
+  position: absolute;
+  left: 71px;
+  top: 10%;
+  transform: translate(-50%, -50%);
+}
+
+/* Adjust content heading margins */
+.content-heading h4,
+.content-heading h5 {
+  margin: 0;
+}
+
+.arrow {
+  cursor: pointer;
+}
+
+.subtopics {
+  display: none;
+  /* Initially hide subtopics */
+  padding-left: 20px;
+  /* Add some padding for indentation */
+}
+
+.subtopics a {
+  text-decoration: none;
+  /* Remove underline */
+  color: #333;
+  /* Set the default text color for subtopics */
+}
+
+.subtopics a:hover {
+  color: #0077b5;
+  /* Change text color on hover */
+}
+
+.arrow {
+  cursor: pointer;
+}

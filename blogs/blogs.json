@@ -1,0 +1,31 @@
+{
+    "topics": [
+      {
+        "name": "Topic 1",
+        "subtopics": [
+          {
+            "name": "Subtopic 1.1",
+            "htmlFile": "topic1-blog1.html"
+          },
+          {
+            "name": "Subtopic 1.2",
+            "htmlFile": "topic1-blog2.html"
+          }
+        ]
+      },
+      {
+        "name": "Topic 2",
+        "subtopics": [
+          {
+            "name": "Subtopic 2.1",
+            "htmlFile": "topic2-blog1.html"
+          },
+          {
+            "name": "Subtopic 2.2",
+            "htmlFile": "topic2-blog2.html"
+          }
+        ]
+      }
+    ]
+  }
+  
