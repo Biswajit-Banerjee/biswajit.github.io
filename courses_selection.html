@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Selection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Added Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+
+        .container {
+            background-color: #44475a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        .container h2 {
+            margin-bottom: 30px;
+            color: #f8f8f2;
+        }
+
+        .welcome-message {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #50fa7b;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #ff79c6;
+        }
+
+        .form-group input {
+            width: calc(50% - 10px);
+            padding: 12px;
+            border: 1px solid #6272a4;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: border-color 0.3s ease;
+            background-color: #44475a;
+            color: #f8f8f2;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #bd93f9;
+        }
+
+        .btn {
+            background-color: #bd93f9;
+            color: #f8f8f2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff79c6;
+        }
+
+        .add-course {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .add-course:hover {
+            opacity: 1;
+        }
+
+        .add-course .plus-icon {
+            font-size: 24px;
+            color: #bd93f9;
+        }
+
+        .course-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .course-item input {
+            width: 70%;
+            margin-right: 10px;
+            padding: 12px;
+            border: 1px solid #6272a4;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: #44475a;
+            color: #f8f8f2;
+        }
+
+        .course-item input:focus {
+            outline: none;
+            border-color: #bd93f9;
+        }
+
+        .remove-course-btn {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: #ff5555; /* Change color to red */
+            transition: color 0.3s ease;
+        }
+
+        .remove-course-btn:hover {
+            color: #ff0000; /* Change color to darker red on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Course Selection</h2>
+        <div class="welcome-message" id="welcome-message"></div>
+        <div id="course-list">
+            <div class="course-item">
+                <input type="text" class="department" placeholder="Department">
+                <input type="text" class="code" placeholder="Code">
+                <!-- Replaced red "x" with trash can icon -->
+                <button class="remove-course-btn" onclick="removeCourse(this)"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        </div>
+        <div class="add-course" onclick="addCourse()">
+            <span class="plus-icon">+</span>
+        </div>
+        <button class="btn" onclick="submitCourses()">Submit</button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        function addCourse() {
+            const courseList = document.getElementById('course-list');
+            const courseItem = document.createElement('div');
+            courseItem.classList.add('course-item');
+            courseItem.innerHTML = `
+                <input type="text" class="department" placeholder="Department">
+                <input type="text" class="code" placeholder="Code">
+                <!-- Replaced red "x" with trash can icon -->
+                <button class="remove-course-btn" onclick="removeCourse(this)"><i class="fas fa-trash-alt"></i></button>
+            `;
+            courseList.appendChild(courseItem);
+        }
+
+        function removeCourse(btn) {
+            const courseItem = btn.parentElement;
+            courseItem.remove();
+        }
+
+        async function submitCourses() {
+            const courseList = document.querySelectorAll('.course-item');
+            const coursesData = [];
+            // const username = 'logged_user'; // You can retrieve the logged-in user here
+
+            courseList.forEach(course => {
+                const department = course.querySelector('.department').value;
+                const code = course.querySelector('.code').value;
+                coursesData.push({ department, code });
+            });
+
+            for (const course of coursesData) {
+                const response = await fetch('http://164.52.210.166:8809/store_class_info', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: username,
+                        class_code: course.department + ' ' + course.code
+                    })
+                });
+
+                if (response.ok) {
+                    console.log('Course added successfully:', course.department + ' ' + course.code);
+                    window.location.href = 'weekly_questions.html?username=' + username;
+                } else {
+                    console.error('Failed to add course:', course.department + ' ' + course.code);
+                }
+            }
+        }
+
+        const welcomeMessage = document.getElementById('welcome-message');
+        welcomeMessage.textContent = `Welcome ${username}, please select your courses.`;
+    </script>
+    <!-- Added Font Awesome for icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+</body>
+</html>

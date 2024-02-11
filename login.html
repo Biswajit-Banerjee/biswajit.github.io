@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login/Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+
+        .container {
+            background-color: #44475a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        .container h2 {
+            margin-bottom: 30px;
+            color: #f8f8f2;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #ff79c6;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #6272a4;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            background-color: #44475a;
+            color: #f8f8f2;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #bd93f9;
+        }
+
+        .btn {
+            background-color: #bd93f9;
+            color: #f8f8f2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #ff79c6;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+
+        /* Hide register form by default */
+        #register-container {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login / Register</h2>
+        
+        <div id="login-container">
+            <div class="form-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password">
+            </div>
+            <button class="btn" onclick="loginUser()">Login</button>
+            <div id="login-error" class="error-message"></div>
+            <p>Don't have an account? <a href="#" onclick="toggleForms()">Register here</a></p>
+        </div>
+
+        <!-- Register form -->
+        <div id="register-container">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" placeholder="Enter your age">
+            </div>
+            <div class="form-group">
+                <label for="level-of-study">Level of Study</label>
+                <input type="text" id="level-of-study" placeholder="Enter your level of study">
+            </div>
+            <div class="form-group">
+                <label for="major">Major</label>
+                <input type="text" id="major" placeholder="Enter your major">
+            </div>
+            <div class="form-group">
+                <label for="institute">Institute</label>
+                <input type="text" id="institute" placeholder="Enter your institute">
+            </div>
+            <button class="btn" onclick="registerUser()">Register</button>
+            <div id="register-error" class="error-message"></div>
+            <p>Already have an account? <a href="#" onclick="toggleForms()">Login here</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle between login and register forms
+        function toggleForms() {
+            const loginContainer = document.getElementById("login-container");
+            const registerContainer = document.getElementById("register-container");
+
+            // Toggle the display property
+            if (loginContainer.style.display === "none") {
+                loginContainer.style.display = "block";
+                registerContainer.style.display = "none";
+            } else {
+                loginContainer.style.display = "none";
+                registerContainer.style.display = "block";
+            }
+        }
+
+        // Example login and register functions (to be implemented with actual backend)
+        async function loginUser() {
+            const username = document.getElementById("login-username").value;
+            console.log(username)
+            window.location.href = 'weekly_questions.html?username=' + username;
+        }
+        async function registerUser() {
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const age = document.getElementById("age").value;
+            const levelOfStudy = document.getElementById("level-of-study").value;
+            const major = document.getElementById("major").value;
+            const institute = document.getElementById("institute").value;
+
+            const userData = {
+                username: username,
+                email: email,
+                password: password,
+                age: age,
+                current_degree: levelOfStudy,
+                major: major,
+                institute: institute
+            };
+
+            const response = await fetch('http://164.52.210.166:8809/user_register/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                // alert('Registration successful! Username: ' + data.username);
+                const username = data.username;
+                window.location.href = `courses_selection.html?username=${username}`;
+            } else {
+                document.getElementById('register-error').innerText = 'Registration failed!';
+            }
+        }
+    </script>
+</body>
+</html>

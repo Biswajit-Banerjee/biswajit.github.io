@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282a36;
+            color: #f8f8f2;
+        }
+
+        .container {
+            background-color: #44475a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        .container h2 {
+            margin-bottom: 30px;
+            color: #f8f8f2;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            color: #f8f8f2;
+            font-size: 18px;
+        }
+
+        .options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            margin: 0 10px 10px 0;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            background-color: #6272a4;
+            color: #f8f8f2;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        .option.selected {
+            background-color: #bd93f9;
+            color: #f8f8f2;
+        }
+
+        .option:hover {
+            opacity: 0.8;
+        }
+
+        .btn-next {
+            background-color: #bd93f9;
+            color: #f8f8f2;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-next:hover {
+            background-color: #ff79c6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Questionnaire</h2>
+        <div class="question">Hey <span id="username"></span>, how much did you get sleep last night?</div>
+        <div class="options">
+            <button class="option" onclick="selectOption(this, 'sleep_quality', 0)">Poor</button>
+            <button class="option" onclick="selectOption(this, 'sleep_quality', 1)">Average</button>
+            <button class="option" onclick="selectOption(this, 'sleep_quality', 2)">Good</button>
+        </div>
+
+        <div class="question">Do you feel safe and respected in your surroundings?</div>
+        <div class="options">
+            <button class="option" onclick="selectOption(this, 'bullying', 0)">No</button>
+            <button class="option" onclick="selectOption(this, 'bullying', 1)">Sometimes</button>
+            <button class="option" onclick="selectOption(this, 'bullying', 2)">Yes</button>
+        </div>
+
+        <div class="question">Do you experience feelings of sadness or hopelessness?</div>
+        <div class="options">
+            <button class="option" onclick="selectOption(this, 'depression', 0)">No</button>
+            <button class="option" onclick="selectOption(this, 'depression', 1)">Occasionally</button>
+            <button class="option" onclick="selectOption(this, 'depression', 2)">Yes</button>
+        </div>
+
+        <div class="question">How supportive are your relationships with others?</div>
+        <div class="options">
+            <button class="option" onclick="selectOption(this, 'relationship', 0)">Poor</button>
+            <button class="option" onclick="selectOption(this, 'relationship', 1)">Fair</button>
+            <button class="option" onclick="selectOption(this, 'relationship', 2)">Strong</button>
+        </div>
+
+        <div class="question">Do you have a reliable support system during difficult times?</div>
+        <div class="options">
+            <button class="option" onclick="selectOption(this, 'social_support', 0)">No</button>
+            <button class="option" onclick="selectOption(this, 'social_support', 1)">Sometimes</button>
+            <button class="option" onclick="selectOption(this, 'social_support', 2)">Yes</button>
+        </div>
+
+        <button class="btn-next" onclick="submitData()">Next</button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        document.getElementById('username').innerText = username;
+        // Ensure that the username is correctly retrieved
+        console.log("Username:", username);
+
+        // Set the username to the appropriate element
+        document.getElementById('username').innerText = username;
+
+        // const username = 'y3ahb0i'
+        document.getElementById('username').innerText = username;
+
+        const answers = {
+            'sleep_quality': -1,
+            'bullying': -1,
+            'depression': -1,
+            'relationship': -1,
+            'social_support': -1
+        };
+
+        function selectOption(btn, question, value) {
+            const options = btn.parentNode.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            btn.classList.add('selected');
+            answers[question] = value;
+        }
+
+        async function submitData() {
+    let allAnswered = true;
+    for (const key in answers) {
+        if (answers[key] === -1) {
+            allAnswered = false;
+            break;
+        }
+    }
+
+    if (allAnswered) {
+        const response = await fetch('http://164.52.210.166:8809/add_data/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                sleep_quality: answers['sleep_quality'],
+                bullying: answers['bullying'],
+                depression: answers['depression'],
+                relationship: answers['relationship'],
+                social_support: answers['social_support']
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data.message); 
+            window.location.href = 'schedule.html?username=' + username;
+            console.log(username)
+        } else {
+            console.error('Failed to submit data');
+        }
+    } else {
+        console.error('Please answer all questions');
+    }
+}
+    </script>
+</body>
+</html>

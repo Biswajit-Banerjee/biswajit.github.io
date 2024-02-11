@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Display</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #282a36;
+            color: #f8f8f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #44475a;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 800px;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #f8f8f2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #6272a4;
+        }
+
+        th {
+            background-color: #44475a;
+            color: #f8f8f2;
+        }
+
+        .comments {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .comments p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #f8f8f2;
+        }
+
+        /* Add styles for scrollable middle part */
+        .scrollable-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Daily Schedule</h2>
+        <!-- Wrap tbody with a div to make it scrollable -->
+        <div class="scrollable-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Task</th>
+                        <th>Comments</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-body">
+                    <!-- Schedule data will be inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        console.log(username)
+        async function fetchScheduleData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('username');
+    const apiUrl = `http://164.52.210.166:8809/get_schedule/${username}`;
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Failed to fetch schedule data');
+        }
+        const data = await response.json();
+        displaySchedule(data);
+    } catch (error) {
+        console.error(error);
+        // Handle error (e.g., display error message to user)
+    }
+}
+
+        // Function to display the schedule data
+        function displaySchedule(data) {
+            const scheduleBody = document.getElementById('schedule-body');
+            // Clear any existing data
+            scheduleBody.innerHTML = '';
+
+            // Loop through the data and create rows for each task
+            Object.keys(data.Time).forEach(index => {
+                const time = data.Time[index];
+                const task = data.Task[index];
+                const comments = data.Comments[index];
+
+                const row = `
+                    <tr>
+                        <td>${time}</td>
+                        <td>${task}</td>
+                        <td>
+                            <div class="comments">
+                                <p>${comments}</p>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+                scheduleBody.innerHTML += row;
+            });
+        }
+
+        // Fetch and display schedule data when the page loads
+        fetchScheduleData();
+    </script>
+</body>
+</html>
